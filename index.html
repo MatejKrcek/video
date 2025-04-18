@@ -2,7 +2,6 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>WTFHack Video</title>
   <style>
     html, body {
@@ -10,45 +9,18 @@
       padding: 0;
       background: black;
       height: 100%;
-      overflow: hidden;
     }
     video {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      display: block;
-      position: relative;
-      z-index: 5; /* Higher z-index to ensure controls are clickable */
     }
   </style>
 </head>
 <body>
-  <video id="mainVideo" autoplay muted playsinline controls loop>
+  <video autoplay muted playsinline controls loop>
     <source src="video2.mp4" type="video/mp4">
     Your browser does not support the video tag.
   </video>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const video = document.getElementById('mainVideo');
-      
-      // This helps with iOS touch event handling
-      video.addEventListener('touchstart', function(e) {
-        // Don't prevent default - allows native controls to work
-      });
-      
-      // Force show controls on iOS
-      video.addEventListener('click', function() {
-        // This helps trigger the native controls on some iOS versions
-        if (video.controls) {
-          // Toggle to force UI update
-          video.controls = false;
-          setTimeout(() => {
-            video.controls = true;
-          }, 10);
-        }
-      });
-    });
-  </script>
 </body>
 </html>
