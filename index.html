@@ -2,6 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>WTFHack Video</title>
   <style>
     html, body {
@@ -16,13 +17,69 @@
       height: 100%;
       object-fit: cover;
       display: block;
+      position: relative;
+      z-index: 1;
+    }
+    .video-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+    .controls-overlay {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      z-index: 2;
+    }
+    .mute-button {
+      background: rgba(0,0,0,0.5);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      font-size: 20px;
+      cursor: pointer;
+      padding: 0;
     }
   </style>
 </head>
 <body>
-  <video autoplay muted playsinline controls loop>
-    <source src="video2.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
+  <div class="video-container">
+    <video id="mainVideo" autoplay muted playsinline loop>
+      <source src="video2.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <div class="controls-overlay">
+      <button class="mute-button" id="muteToggle">🔊</button>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const video = document.getElementById('mainVideo');
+      const muteButton = document.getElementById('muteToggle');
+      
+      muteButton.addEventListener('click', function() {
+        if(video.muted) {
+          video.muted = false;
+          muteButton.textContent = '🔊';
+        } else {
+          video.muted = true;
+          muteButton.textContent = '🔇';
+        }
+      });
+      
+      // Add touch events to help with mobile interaction
+      muteButton.addEventListener('touchstart', function(e) {
+        e.stopPropagation();
+      });
+      
+      // Allow scrolling through the page while video plays
+      video.addEventListener('touchstart', function(e) {
+        e.stopPropagation();
+      });
+    });
+  </script>
 </body>
 </html>
